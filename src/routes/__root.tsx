@@ -7,6 +7,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import css from "../app.css?url";
+import { Navbar } from "../components/Navbar";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -35,6 +36,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body className="flex h-full flex-col">
+        <Navbar />
         <main className="flex-1">{children}</main>
         <Scripts />
       </body>
