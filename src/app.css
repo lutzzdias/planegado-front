@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #388e3c;
+  --font-logo: "Jura", mono;
+  --font-roboto: "Roboto", sans-serif;
+}
