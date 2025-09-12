@@ -14,6 +14,7 @@
     "tailwindStylesheet": "./src/app.css"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.7",
     "@tailwindcss/vite": "^4.1.13",
     "@tanstack/react-router": "^1.131.36",
     "@tanstack/react-start": "^1.131.36",
