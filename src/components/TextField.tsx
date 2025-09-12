@@ -15,7 +15,7 @@ export function TextField(props: Props) {
 
   return (
     <Field className="flex flex-col gap-1">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-1.5">
         <Label className="text-sm data-disabled:opacity-50">{label}</Label>
         {hint && (
           <HintPopover content={hint}>
