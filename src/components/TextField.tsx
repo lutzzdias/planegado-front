@@ -1,4 +1,4 @@
-import { Field, Label, Input as HeadlessInput } from "@headlessui/react";
+import { Field, Label, Input } from "@headlessui/react";
 import { CircleQuestionMark } from "lucide-react";
 import HintPopover from "./HintPopover";
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 // TODO: implement prefix / suffix
-export function Input(props: Props) {
+export function TextField(props: Props) {
   const { name, label, placeholder, hint } = props;
 
   return (
@@ -23,10 +23,10 @@ export function Input(props: Props) {
           </HintPopover>
         )}
       </div>
-      <HeadlessInput
+      <Input
         name={name}
         placeholder={placeholder}
-        className="block w-full rounded-lg px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-900 data-disabled:bg-gray-100 data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-primary"
+        className="block w-full rounded-lg px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-900/40 data-disabled:bg-gray-100 data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-primary"
       />
     </Field>
   );
