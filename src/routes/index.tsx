@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Section } from "../components/Section";
-import { TextField } from "../components/TextField";
 import { InfoIcon } from "lucide-react";
 import { ResultItem } from "../components/ResultItem";
+import { useAppForm } from "../hooks/form";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -22,70 +22,143 @@ function Home() {
     values: ["Peso médio", "Peso total"],
   };
 
+  const form = useAppForm({
+    defaultValues: {
+      // initial investment
+      animalNumber: "",
+      initialWeight: "",
+      initialKiloPrice: "",
+
+      // ration
+      rationWeightPercentage: "",
+      expectedDmg: "",
+      rationKiloPrice: "",
+
+      // final
+      finalWeight: "",
+      finalKiloPrice: "",
+      splitPercentageInvestor: "",
+    },
+    validators: {
+      // TODO: add validation (with zod)
+    },
+    onSubmit: ({ value }) => {
+      alert(JSON.stringify(value, null, 2));
+    },
+  });
+
   return (
     <div className="flex h-full gap-10 px-20 py-3">
-      <div className="flex flex-1 flex-col gap-12">
-        <Section
-          title="Investimento inicial"
-          description="Informações para calcular o valor do investimento inicial necessário"
-          options={initialInvestmentOptions}
-        >
-          <TextField
-            name="animal-number"
-            label="Número de animais"
-            placeholder="42"
-          />
-          <TextField
-            name="total-weight"
-            label="Peso total"
-            placeholder="1000 kg"
-          />
-          <TextField
-            name="initial-kilo-price"
-            label="Preço do quilo"
-            placeholder="R$ 12,00"
-          />
-        </Section>
-        <Section
-          title="Ração"
-          description="Informações para calcular o valor referente ao investimento relacionado à ração"
-          options={regimeOptions}
-        >
-          <TextField
-            name="ration-weight-percentage"
-            label="% do peso vivo"
-            placeholder="0,3 %"
-            hint="explicando o que é esse valor, pra que serve e alguns exemplos de ratios comuns"
-          />
-          <TextField
-            name="expected-dmg"
-            label="GMD esperado"
-            placeholder="1 kg / dia"
-          />
-          <TextField
-            name="ration-kilo-price"
-            label="Preço do quilo"
-            placeholder="R$ 2,20"
-          />
-        </Section>
-        <Section
-          title="Venda"
-          description="Informações referentes à saída dos animais"
-          options={exitOptions}
-        >
-          <TextField name="exit-weight" label="Peso médio" placeholder="42" />
-          <TextField
-            name="exit-weight-price"
-            label="Preço do quilo"
-            placeholder="R$ 12,00"
-          />
-          <TextField
-            name="split-percentage-investor"
-            label="% do lucro do investidor"
-            placeholder="50 %"
-          />
-        </Section>
-      </div>
+      <form
+        className="flex flex-1 flex-col gap-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+      >
+        <div className="flex flex-col gap-12">
+          <Section
+            title="Investimento inicial"
+            description="Informações para calcular o valor do investimento inicial necessário"
+            options={initialInvestmentOptions}
+          >
+            <form.AppField
+              name="animalNumber"
+              children={(field) => (
+                <field.TextField label="Número de animais" placeholder="42" />
+              )}
+            />
+            <form.AppField
+              name="initialWeight"
+              children={(field) => (
+                <field.TextField label="Peso total" placeholder="1000 kg" />
+              )}
+            />
+            <form.AppField
+              name="initialKiloPrice"
+              children={(field) => (
+                <field.TextField
+                  label="Preço do quilo"
+                  placeholder="R$ 12,00"
+                />
+              )}
+            />
+          </Section>
+          <Section
+            title="Ração"
+            description="Informações para calcular o valor referente ao investimento relacionado à ração"
+            options={regimeOptions}
+          >
+            <form.AppField
+              name="rationWeightPercentage"
+              children={(field) => (
+                <field.TextField
+                  label="% do peso vivo"
+                  placeholder="0,3 %"
+                  hint="explicando o que é esse valor, pra que serve e alguns exemplos de ratios comuns"
+                />
+              )}
+            />
+            <form.AppField
+              name="expectedDmg"
+              children={(field) => (
+                <field.TextField
+                  label="GMD esperado"
+                  placeholder="1 kg / dia"
+                />
+              )}
+            />
+            <form.AppField
+              name="rationKiloPrice"
+              children={(field) => (
+                <field.TextField label="Preço do quilo" placeholder="R$ 2,20" />
+              )}
+            />
+          </Section>
+          <Section
+            title="Venda"
+            description="Informações referentes à saída dos animais"
+            options={exitOptions}
+          >
+            <form.AppField
+              name="finalWeight"
+              children={(field) => (
+                <field.TextField label="Peso médio" placeholder="400 kg" />
+              )}
+            />
+            <form.AppField
+              name="finalKiloPrice"
+              children={(field) => (
+                <field.TextField
+                  label="Preço do quilo"
+                  placeholder="R$ 12,00"
+                />
+              )}
+            />
+            <form.AppField
+              name="splitPercentageInvestor"
+              children={(field) => (
+                <field.TextField
+                  label="% do lucro do investidor"
+                  placeholder="50 %"
+                />
+              )}
+            />
+          </Section>
+        </div>
+        <div className="flex justify-end">
+          <form.Subscribe selector={(state) => state.isSubmitting}>
+            {(isSubmitting) => (
+              <button
+                disabled={isSubmitting}
+                className="w-min cursor-pointer rounded-lg bg-primary px-6 py-2 text-white"
+              >
+                Calcular
+              </button>
+            )}
+          </form.Subscribe>
+        </div>
+      </form>
       <div className="flex flex-1 flex-col gap-8">
         <div className="flex flex-col gap-2">
           <h3 className="text-sm font-medium text-primary">

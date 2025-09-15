@@ -1,9 +1,9 @@
 import { Field, Label, Input } from "@headlessui/react";
 import { CircleQuestionMarkIcon } from "lucide-react";
 import HintPopover from "./HintPopover";
+import { useFieldContext } from "../hooks/form";
 
 interface Props {
-  name: string;
   label: string;
   placeholder: string;
   hint?: string;
@@ -11,7 +11,8 @@ interface Props {
 
 // TODO: implement prefix / suffix
 export function TextField(props: Props) {
-  const { name, label, placeholder, hint } = props;
+  const { label, placeholder, hint } = props;
+  const field = useFieldContext<string | number>();
 
   return (
     <Field className="flex flex-col gap-1">
@@ -26,8 +27,10 @@ export function TextField(props: Props) {
         )}
       </div>
       <Input
-        name={name}
         placeholder={placeholder}
+        value={field.state.value}
+        onChange={(e) => field.handleChange(e.target.value)}
+        onBlur={field.handleBlur}
         className="block w-full rounded-lg px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-900/40 data-disabled:bg-gray-100 data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-primary"
       />
     </Field>
