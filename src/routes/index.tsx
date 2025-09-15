@@ -130,15 +130,16 @@ function Home() {
             </div>
             <div className="flex flex-1 flex-col items-center gap-1 text-lg font-semibold">
               <div className="flex w-full text-xs font-normal text-white">
+                {/* TODO: make flex-<value> be dynamic  */}
                 <div
-                  className={`flex flex-${50} items-center justify-between rounded-s-md bg-primary px-3 py-2`}
+                  className={`flex flex-1 items-center justify-between rounded-s-md bg-primary px-3 py-2`}
                 >
                   <span>Investidor</span>
                   <span>R$ 21.780,50</span>
                   <span>50%</span>
                 </div>
                 <div
-                  className={`flex flex-${50} items-center justify-between rounded-e-md bg-gray-500 px-3 py-2`}
+                  className={`flex flex-1 items-center justify-between rounded-e-md bg-gray-500 px-3 py-2`}
                 >
                   <span>50%</span>
                   <span>R$ 21.780,50</span>
