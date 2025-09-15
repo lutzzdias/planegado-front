@@ -1,5 +1,5 @@
 import { Field, Label, Input } from "@headlessui/react";
-import { CircleQuestionMark } from "lucide-react";
+import { CircleQuestionMarkIcon } from "lucide-react";
 import HintPopover from "./HintPopover";
 
 interface Props {
@@ -21,7 +21,7 @@ export function TextField(props: Props) {
         </Label>
         {hint && (
           <HintPopover content={hint}>
-            <CircleQuestionMark className="h-3.5 w-3.5 cursor-pointer text-gray-600" />
+            <CircleQuestionMarkIcon className="h-3.5 w-3.5 cursor-pointer text-gray-600" />
           </HintPopover>
         )}
       </div>
