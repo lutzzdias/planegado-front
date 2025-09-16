@@ -45,7 +45,7 @@ function Home() {
       // TODO: add validation
     },
     onSubmit: ({ value }) => {
-      console.debug(`Form submitted with values: ${value}`);
+      console.debug("Form submitted with values:", value);
     },
   });
 
