@@ -3,6 +3,7 @@ import { Section } from "../components/Section";
 import { InfoIcon } from "lucide-react";
 import { ResultItem } from "../components/ResultItem";
 import { useAppForm } from "../hooks/form";
+import { ProfitArea } from "../components/ProfitArea";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -22,28 +23,29 @@ function Home() {
     values: ["Peso médio", "Peso total"],
   };
 
+  const defaultForm = {
+    animalNumber: "",
+    initialWeight: "",
+    initialKiloPrice: "",
+
+    // ration
+    rationWeightPercentage: "",
+    expectedDmg: "",
+    rationKiloPrice: "",
+
+    // final
+    finalWeight: "",
+    finalKiloPrice: "",
+    splitPercentageInvestor: "",
+  };
+
   const form = useAppForm({
-    defaultValues: {
-      // initial investment
-      animalNumber: "",
-      initialWeight: "",
-      initialKiloPrice: "",
-
-      // ration
-      rationWeightPercentage: "",
-      expectedDmg: "",
-      rationKiloPrice: "",
-
-      // final
-      finalWeight: "",
-      finalKiloPrice: "",
-      splitPercentageInvestor: "",
-    },
+    defaultValues: defaultForm,
     validators: {
-      // TODO: add validation (with zod)
+      // TODO: add validation
     },
     onSubmit: ({ value }) => {
-      alert(JSON.stringify(value, null, 2));
+      console.debug(`Form submitted with values: ${value}`);
     },
   });
 
@@ -196,32 +198,7 @@ function Home() {
             <ResultItem title="Valor total" value="R$ 73.987,00" />
             <ResultItem title="Data de saída" value="25/02/2003" />
           </div>
-          <div className="flex w-full flex-col gap-1">
-            <div className="flex items-center gap-1 text-sm font-normal text-gray-600">
-              Lucro
-              <InfoIcon className="h-3.5 w-3.5 cursor-pointer" />
-            </div>
-            <div className="flex flex-1 flex-col items-center gap-1 text-lg font-semibold">
-              <div className="flex w-full text-xs font-normal text-white">
-                {/* TODO: make flex-<value> be dynamic  */}
-                <div
-                  className={`flex flex-1 items-center justify-between rounded-s-md bg-primary px-3 py-2`}
-                >
-                  <span>Investidor</span>
-                  <span>R$ 21.780,50</span>
-                  <span>50%</span>
-                </div>
-                <div
-                  className={`flex flex-1 items-center justify-between rounded-e-md bg-gray-500 px-3 py-2`}
-                >
-                  <span>50%</span>
-                  <span>R$ 21.780,50</span>
-                  <span>Produtor</span>
-                </div>
-              </div>
-              R$ 43.561,00
-            </div>
-          </div>
+          <ProfitArea />
         </div>
       </div>
     </div>
