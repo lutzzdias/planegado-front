@@ -2,14 +2,17 @@
 import type { ReactNode } from "react";
 import {
   Outlet,
-  createRootRoute,
   HeadContent,
   Scripts,
+  createRootRouteWithContext,
 } from "@tanstack/react-router";
 import css from "../app.css?url";
 import { Navbar } from "../components/Navbar";
+import { QueryClient } from "@tanstack/react-query";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+}>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -18,6 +21,8 @@ export const Route = createRootRoute({
     ],
     links: [{ rel: "stylesheet", href: css }],
   }),
+  errorComponent: () => <div>error</div>, // TODO: create component
+  notFoundComponent: () => <div>error</div>, // TODO: create component
   component: RootComponent,
 });
 
