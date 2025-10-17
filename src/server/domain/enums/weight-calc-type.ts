@@ -1,4 +1,4 @@
 export enum WeightCalculationType {
-    Average = 0,
-    Total = 1,
+    Average = "Average",
+    Total = "Total",
 }
