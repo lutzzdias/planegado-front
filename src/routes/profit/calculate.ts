@@ -1,35 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
-import { ProfitRequest } from "../../server/types/profit-request";
 import { Herd } from "../../server/domain/entities/herd";
 import { Ration } from "../../server/domain/entities/ration";
 import { Sale } from "../../server/domain/entities/sale";
 import { CalculateExpectedProfit } from "../../server/domain/usecases/calc-expected-profit";
-import { WeightCalculationType } from "../../server/domain/enums/weight-calc-type";
-
-const HerdSchema = z.object({
-    numberOfAnimals: z.number().min(1),
-    totalWeight: z.number().min(0),
-    priceKg: z.number().min(0),
-    weightCalculationType: z.enum(WeightCalculationType)
-});
-
-const RationSchema = z.object({
-    percentageAliveWeight: z.number().min(0).max(100),
-    expectedGMD: z.number().min(0),
-    priceKg: z.number().min(0)
-});
-
-const SaleSchema = z.object({
-    priceKg: z.number().min(0)
-});
-
-const ProfitRequestSchema = z.object({
-    herd: HerdSchema,
-    ration: RationSchema.nullable().optional(),
-    sale: SaleSchema,
-    days: z.number().min(1)
-});
+import { ProfitRequestSchema } from "../../dtos/ProfitRequestDTO";
 
 export const calculateProfit = createServerFn({
     method: "POST",
